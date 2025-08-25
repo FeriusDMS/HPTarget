@@ -16,6 +16,7 @@ env:
 
 jobs:
   build:
+    if: ${{ contains(toJSON(github.event.commits.*.message), 'build:') || contains(toJSON(github.event.commits.*.message), 'build(')}}
     runs-on: windows-2022
     steps:
       - name: Checkout
@@ -23,18 +24,45 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Extract Branch
+        id: extract_branch
+        run: |
+          $branch_name = 'master'
+          $commit_messages = @'
+          ${{ toJSON(github.event.commits) }}
+          '@
+          
+          $commit_messages = $commit_messages | ConvertFrom-Json
+          
+          foreach ($commit in $commit_messages) {
+              if ($commit.message -match 'build\(([^)]+)\):') {
+                  $branch_name = $matches[1]
+                  break
+              }
+          }
+
+          echo "branch_name=$branch_name" >> $env:GITHUB_OUTPUT
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Download Dalamud
         run: |
-          Invoke-WebRequest -Uri 'https://goatcorp.github.io/dalamud-distrib/latest.zip' -OutFile latest.zip
+          $branch_name = '${{ steps.extract_branch.outputs.branch_name }}'
+
+          if ($branch_name -eq 'master') {
+            $url = 'https://goatcorp.github.io/dalamud-distrib/latest.zip'
+          } else {
+            $url = "https://goatcorp.github.io/dalamud-distrib/$branch_name/latest.zip"
+          }
+          
+          Invoke-WebRequest -Uri $url -OutFile latest.zip
           Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
 
       - name: Build
         run: |
           dotnet restore -r win ${{ env.SOLUTION_NAME }}.csproj
-          dotnet build --configuration Release -r win
+          dotnet build --configuration Release
 
       - uses: actions/upload-artifact@v4
         with:
