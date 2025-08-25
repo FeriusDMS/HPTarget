@@ -16,7 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Référence à Dalamud (nécessaire plus tard, mais pour tester tu peux laisser vide) -->
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
