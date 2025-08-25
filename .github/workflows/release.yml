@@ -19,14 +19,15 @@ jobs:
 
       - name: Restore
         run: dotnet restore
+        working-directory: HPTarget
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
+        working-directory: HPTarget
 
       - name: Publish Plugin Zip
         run: |
           mkdir out
-          # copie le contenu du dossier Release/net8.0-windows dans un zip
           powershell Compress-Archive -Path "bin/Release/net8.0-windows/*" -DestinationPath "out/HPTarget.zip"
 
       - name: Upload Release Asset

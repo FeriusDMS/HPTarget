@@ -1,0 +1,13 @@
+{
+  "Author": "FeriusDMS",
+  "Name": "HPTarget",
+  "Punchline": "Show the HP of the Target (Ally/Foe)",
+  "Description": "Simple overlay who show the current HP of the target",
+  "RepoUrl": "https://github.com/FeriusDMS/HPTarget",
+  "Changelog": "First version",
+  "AssemblyVersion": "0.0.1",
+  "DalamudApiLevel": 13,
+  "DownloadLinkInstall": "https://github.com/FeriusDMS/HPTarget/releases/latest/download/HPTarget.zip",
+  "DownloadLinkUpdate": "https://github.com/FeriusDMS/HPTarget/releases/latest/download/HPTarget.zip",
+  "DownloadLinkTesting": "https://github.com/FeriusDMS/HPTarget/releases/latest/download/HPTarget.zip"
+}

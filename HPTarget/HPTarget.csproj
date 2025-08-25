@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Nom de ton assembly -->
+    <AssemblyName>HPTarget</AssemblyName>
+
+    <!-- DLL de sortie -->
+    <OutputType>Library</OutputType>
+
+    <!-- Version du .NET utilisé par Dalamud -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+
+    <!-- Configuration par défaut -->
+    <RootNamespace>HPTarget</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Référence à Dalamud (nécessaire plus tard, mais pour tester tu peux laisser vide) -->
+  </ItemGroup>
+
+</Project>
