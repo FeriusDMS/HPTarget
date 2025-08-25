@@ -1,38 +1,43 @@
-name: Build and Release
+name: Build
 
 on:
+  workflow_dispatch:
   push:
-    tags:
-      - "v*"
+    branches:
+      - master
+
+env:
+  PUBLIC_NAME: HPTarget
+  SOLUTION_NAME: HPTarget
+  INTERNAL_NAME: HPTarget
+  RELEASE_DIR: HPTarget\bin\x64\Release\HPTarget
+  PERSONAL_PLUGIN_REPO: FeriusDMS/MyDalamudPlugins
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          dotnet-version: 8.0.x
+          submodules: recursive
 
-      - name: Restore
-        run: dotnet restore
-        working-directory: HPTarget
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Download Dalamud
+        run: |
+          Invoke-WebRequest -Uri 'https://goatcorp.github.io/dalamud-distrib/latest.zip' -OutFile latest.zip
+          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-        working-directory: HPTarget
-
-      - name: Publish Plugin Zip
         run: |
-          mkdir out
-          powershell Compress-Archive -Path "bin/Release/net8.0-windows/*" -DestinationPath "out/HPTarget.zip"
+          dotnet restore -r win ${{ env.SOLUTION_NAME }}.csproj
+          dotnet build --configuration Release -r win
 
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v1
+      - uses: actions/upload-artifact@v4
         with:
-          files: out/HPTarget.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: PluginRepoZip
+          path: ${{ env.RELEASE_DIR }}
+          if-no-files-found: error
