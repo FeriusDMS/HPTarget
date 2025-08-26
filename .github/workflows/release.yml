@@ -60,8 +60,9 @@ jobs:
           Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
 
       - name: Build
+        working-directory: HPTarget
         run: |
-          dotnet restore -r win HPTarget/${{ env.SOLUTION_NAME }}.csproj
+          dotnet restore -r win ${{ env.SOLUTION_NAME }}.csproj
           dotnet build --configuration Release
 
       - uses: actions/upload-artifact@v4
