@@ -1,58 +1,51 @@
 using Dalamud.Plugin;
-using Dalamud.Interface.Winddowing;
+using Dalamud.Interface.Windowing;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
 
-namespace HPTarget
+namespace HPTarget;
+
+public sealed class Plugin : IDalamudPlugin
 {
-    public sealed class Plugin : IDalamudPlugin
+    public string Name => "HPTarget";
+
+    [PluginService] internal static ITargetManager TargetManager { get; private set; } = null!;
+    [PluginService] internal static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+
+    private readonly WindowSystem windowSystem;
+    private readonly HPTargetWindow hpWindow;
+
+    public Plugin()
     {
-        public string Name => "HPTarget";
+        this.windowSystem = new WindowSystem("HPTarget");
+        this.hpWindow = new HPTargetWindow();
+        this.windowSystem.AddWindow(hpWindow);
 
-        private readonly DalamudPluginInterface pluginInterface;
-        private readonly ITargetManager targetManager;
-        private readonly WindowSystem windowSystem = new("HPTarget");
-        private readonly HpWindow hpWindow;
-
-        public Plugin(DalamudPluginInterface pluginInterface, ITargetManager targetManager)
-        {
-            this.pluginInterface = pluginInterface;
-            this.targetManager = targetManager;
-
-            this.hpWindow = new HpWindow(targetManager);
-            this.windowSystem.AddWindow(this.hpWindow);
-
-            this.pluginInterface.UiBuilder.Draw += DrawUI;
-        }
-
-        private void DrawUI() => this.windowSystem.Draw();
-
-        public void Dispose()
-        {
-            this.windowSystem.RemoveAllWindows();
-            this.pluginInterface.UiBuilder.Draw -= DrawUI;
-        }
+        PluginInterface.UiBuilder.Draw += this.DrawUI;
     }
 
-    public class HpWindow : Window
+    private void DrawUI() => this.windowSystem.Draw();
+
+    public void Dispose()
     {
-        private readonly ITargetManager targetManager;
+        this.windowSystem.RemoveAllWindows();
+        PluginInterface.UiBuilder.Draw -= this.DrawUI;
+    }
+}
 
-        public HpWindow(ITargetManager targetManager)
-            : base("HP Target Overlay", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoBackground)
-        {
-            this.targetManager = targetManager;
-        }
+public class HPTargetWindow : Window
+{
+    public HPTargetWindow() : base("HPTarget", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse)
+    {
+        this.RespectCloseHotkey = false;
+    }
 
-        public override void Draw()
-        {
-            var target = this.targetManager.Target as IBattleChara;
-            if (target == null || target.MaxHp <= 0)
-                return;
+    public override void Draw()
+    {
+        var target = Plugin.TargetManager.Target as BattleChara;
+        if (target == null) return;
 
-            string hpText = $"{target.CurrentHp:N0} / {target.MaxHp:N0}";
-            ImGui.Text(hpText);
-        }
+        ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
     }
 }
