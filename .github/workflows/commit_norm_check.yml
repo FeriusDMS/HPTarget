@@ -26,7 +26,7 @@ jobs:
               echo "Skipping merge commit"
             else
               echo $commit_msg
-              echo "Commit message does not match expected format. Please use the following format: \"KEYWORD(scope): comment\""
+              echo "Commit message does not match expected format. Please use the following format: \"build(scope): comment\""
               exit 1
             fi
           fi
