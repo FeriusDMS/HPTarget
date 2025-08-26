@@ -4,6 +4,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
+using Dalamud.Game.ClientState.Objects
 using Dalamud.IoC;
 
 namespace HPTarget;
@@ -11,8 +12,8 @@ namespace HPTarget;
 public sealed class Plugin : IDalamudPlugin {
     public string Name => "HPTarget";
 
-    [PluginService] internal static DalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static ITargetManager TargetManager { get; private set; } = null!;
+    [PluginService] public static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+    [PluginService] public static ITargetManager TargetManager { get; private set; } = null!;
 
     private readonly WindowSystem ws = new("HPTarget");
     private readonly HPWindow window = new();
