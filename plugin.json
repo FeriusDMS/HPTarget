@@ -8,7 +8,7 @@
   "Tags": [ "UI", "Combat", "HP" ],
   "CategoryTags": [ "UI" ],
   "Changelog": "First version",
-  "AssemblyVersion": "0.0.1",
+  "AssemblyVersion": "0.0.2",
   "DalamudApiLevel": 13,
   "DownloadLinkInstall": "https://github.com/FeriusDMS/HPTarget/releases/latest/download/HPTarget.zip",
   "DownloadLinkUpdate": "https://github.com/FeriusDMS/HPTarget/releases/latest/download/HPTarget.zip",

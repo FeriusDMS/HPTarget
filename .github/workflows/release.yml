@@ -10,7 +10,7 @@ env:
   PUBLIC_NAME: HPTarget
   SOLUTION_NAME: HPTarget
   INTERNAL_NAME: HPTarget
-  RELEASE_DIR: HPTarget\bin\Release/net8.0-windows
+  RELEASE_DIR: HPTarget\bin\x64\Release\HPTarget
   PERSONAL_PLUGIN_REPO: FeriusDMS/MyDalamudPlugins
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
@@ -65,7 +65,6 @@ jobs:
           dotnet restore -r win ${{ env.SOLUTION_NAME }}.csproj
           dotnet build --configuration Release
 
-      # correct that later, have to pass it into a x64 and not into a win-x64
       - uses: actions/upload-artifact@v4
         with:
           name: PluginRepoZip

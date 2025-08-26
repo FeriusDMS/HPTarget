@@ -1,18 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.Sdk/13.0.0">
 
   <PropertyGroup>
     <AssemblyName>HPTarget</AssemblyName>
 
     <Authors>FeriusDMS</Authors>
-    <Version>0.0.1</Version>
-
-    <OutputType>Library</OutputType>
-
-    <!-- Change that to put a x64 -->
-    <TargetFramework>net8.0-windows</TargetFramework>
-
-    <RootNamespace>HPTarget</RootNamespace>
-    <Nullable>enable</Nullable>
+    <Version>0.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
