@@ -4,7 +4,7 @@
   <PropertyGroup>
     <AssemblyName>HPTarget</AssemblyName>
 
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
