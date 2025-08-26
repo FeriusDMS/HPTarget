@@ -8,6 +8,7 @@
 
     <OutputType>Library</OutputType>
 
+    <!-- Change that to put a x64 -->
     <TargetFramework>net8.0-windows</TargetFramework>
 
     <RootNamespace>HPTarget</RootNamespace>
