@@ -3,6 +3,12 @@
 
   <PropertyGroup>
     <AssemblyName>HPTarget</AssemblyName>
+    
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
     <Authors>FeriusDMS</Authors>
     <Version>0.0.2</Version>

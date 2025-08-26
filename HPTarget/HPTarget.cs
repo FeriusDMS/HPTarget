@@ -6,46 +6,34 @@ using Dalamud.Game.ClientState.Objects.Types;
 
 namespace HPTarget;
 
-public sealed class Plugin : IDalamudPlugin
-{
+public sealed class Plugin : IDalamudPlugin {
     public string Name => "HPTarget";
 
-    [PluginService] internal static ITargetManager TargetManager { get; private set; } = null!;
     [PluginService] internal static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+    [PluginService] internal static ITargetManager TargetManager { get; private set; } = null!;
 
-    private readonly WindowSystem windowSystem;
-    private readonly HPTargetWindow hpWindow;
+    private readonly WindowSystem ws = new("HPTarget");
+    private readonly HPWindow window = new();
 
-    public Plugin()
-    {
-        this.windowSystem = new WindowSystem("HPTarget");
-        this.hpWindow = new HPTargetWindow();
-        this.windowSystem.AddWindow(hpWindow);
-
-        PluginInterface.UiBuilder.Draw += this.DrawUI;
+    public Plugin() {
+        ws.AddWindow(window);
+        PluginInterface.UiBuilder.Draw += Draw;
     }
 
-    private void DrawUI() => this.windowSystem.Draw();
+    private void Draw() => ws.Draw();
 
-    public void Dispose()
-    {
-        this.windowSystem.RemoveAllWindows();
-        PluginInterface.UiBuilder.Draw -= this.DrawUI;
+    public void Dispose() {
+        ws.RemoveAllWindows();
+        PluginInterface.UiBuilder.Draw -= Draw;
     }
 }
 
-public class HPTargetWindow : Window
-{
-    public HPTargetWindow() : base("HPTarget", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse)
-    {
-        this.RespectCloseHotkey = false;
-    }
+public class HPWindow : Window {
+    public HPWindow() : base("HPTarget Overlay", ImGui.ImGuiWindowFlags.AlwaysAutoResize) {}
 
-    public override void Draw()
-    {
-        var target = Plugin.TargetManager.Target as BattleChara;
+    public override void Draw() {
+        var target = TargetManager.Target as BattleChara;
         if (target == null) return;
-
-        ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
+        ImGui.ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
     }
 }
