@@ -10,7 +10,7 @@ env:
   PUBLIC_NAME: HPTarget
   SOLUTION_NAME: HPTarget
   INTERNAL_NAME: HPTarget
-  RELEASE_DIR: HPTarget\bin\x64\Release\HPTarget
+  RELEASE_DIR: HPTarget\bin\Release\win-x64\HPTarget
   PERSONAL_PLUGIN_REPO: FeriusDMS/MyDalamudPlugins
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
