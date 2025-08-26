@@ -4,7 +4,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
-using Dalamud.Game.ClientState.Objects
+using Dalamud.Game.ClientState.Objects;
 using Dalamud.IoC;
 
 namespace HPTarget;
