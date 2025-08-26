@@ -3,8 +3,8 @@
 
   <PropertyGroup>
     <AssemblyName>HPTarget</AssemblyName>
-    
-    <TargetFramework>net9.0-windows</TargetFramework>
+
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -13,6 +13,13 @@
     <Authors>FeriusDMS</Authors>
     <Version>0.0.2</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+  <Reference Include="Dalamud">
+    <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
+    <Private>false</Private>
+  </Reference>
+</ItemGroup>
 
   <ItemGroup>
     <None Remove="stylecop.json" />
