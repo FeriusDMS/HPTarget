@@ -12,7 +12,7 @@ namespace HPTarget;
 public sealed class Plugin : IDalamudPlugin {
     public string Name => "HPTarget";
 
-    [PluginService] public static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+    [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] public static ITargetManager TargetManager { get; private set; } = null!;
 
     private readonly WindowSystem ws = new("HPTarget");
