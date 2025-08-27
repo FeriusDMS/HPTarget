@@ -6,6 +6,7 @@ using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.IoC;
+using Dalamud.Plugin.Services.ILog;
 
 namespace HPTarget;
 
@@ -38,5 +39,10 @@ public class HPWindow : Window {
         var target = Plugin.TargetManager.Target as IBattleChara;
         if (target == null) return;
         ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
+
+        PluginLog.Info($"Target HP: {target.CurrentHp}");
+        PluginLog.Info($"Target HP n0: {target.CurrentHp:n0}");
+        PluginLog.Info($"Target Max HP: {target.MaxHp}");
+        PluginLog.Info($"Target Max HP n0: {target.MaxHp:n0}");
     }
 }
