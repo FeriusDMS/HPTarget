@@ -32,7 +32,7 @@ public class Plugin : IDalamudPlugin {
 }
 
 public class HPWindow : Window {
-    public HPWindow() : base("HPTarget Overlay", ImGui.WindowFlags.AlwaysAutoResize) {}
+    public HPWindow() : base("HPTarget Overlay", ImGuiWindowFlags.AlwaysAutoResize) {}
 
     public override void Draw() {
         var target = Plugin.TargetManager.Target as IBattleChara;
