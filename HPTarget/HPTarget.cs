@@ -9,7 +9,7 @@ using Dalamud.IoC;
 
 namespace HPTarget;
 
-public sealed class Plugin : IDalamudPlugin {
+public class Plugin : IDalamudPlugin {
     public string Name => "HPTarget";
 
     [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
@@ -32,11 +32,11 @@ public sealed class Plugin : IDalamudPlugin {
 }
 
 public class HPWindow : Window {
-    public HPWindow() : base("HPTarget Overlay", ImGui.ImGuiWindowFlags.AlwaysAutoResize) {}
+    public HPWindow() : base("HPTarget Overlay", ImGui.WindowFlags.AlwaysAutoResize) {}
 
     public override void Draw() {
-        var target = TargetManager.Target as BattleChara;
+        var target = Plugin.TargetManager.Target as IBattleChara;
         if (target == null) return;
-        ImGui.ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
+        ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
     }
 }
