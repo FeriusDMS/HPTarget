@@ -4,7 +4,7 @@
   "Punchline": "Show the HP of the target (Ally/Foe).",
   "Description": "Simple overlay who show the HP of the current target",
   "RepoUrl": "https://github.com/FeriusDMS/HPTarget",
-  "Changelog": "First version",
+  "Changelog": "-0.1.0\n  Fonctional version",
   "Tags": [
     "UI"
   ]

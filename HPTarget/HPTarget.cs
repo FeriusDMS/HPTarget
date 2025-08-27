@@ -26,7 +26,6 @@ public class Plugin : IDalamudPlugin {
 
     private void Draw() {
         var hasTarget = TargetManager.Target is IBattleChara;
-        Log.Info($"hasTarget value: {hasTarget}");
         window.IsOpen = hasTarget;
         ws.Draw();
     }
@@ -41,14 +40,8 @@ public class HPWindow : Window {
     public HPWindow() : base("HPTarget Overlay", ImGuiWindowFlags.AlwaysAutoResize) {}
 
     public override void Draw() {
-        Plugin.Log.Info("So not here");
         var target = Plugin.TargetManager.Target as IBattleChara;
         if (target == null) return;
         ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
-
-        Plugin.Log.Info($"Target HP: {target.CurrentHp}");
-        Plugin.Log.Info($"Target HP n0: {target.CurrentHp:n0}");
-        Plugin.Log.Info($"Target Max HP: {target.MaxHp}");
-        Plugin.Log.Info($"Target Max HP n0: {target.MaxHp:n0}");
     }
 }
