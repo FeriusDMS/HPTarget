@@ -26,6 +26,7 @@ public class Plugin : IDalamudPlugin {
 
     private void Draw() {
         var hasTarget = TargetManager.Target is IBattleChara;
+        Log.Info($"hasTarget value: {hasTarget}");
         window.IsOpen = hasTarget;
         ws.Draw();
     }
