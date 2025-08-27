@@ -6,7 +6,6 @@ using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.IoC;
-using Dalamud.Plugin.Services.ILog;
 
 namespace HPTarget;
 
@@ -15,6 +14,7 @@ public class Plugin : IDalamudPlugin {
 
     [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] public static ITargetManager TargetManager { get; private set; } = null!;
+    [PluginService] public static IPluginLog Log { get; private set; } = null!
 
     private readonly WindowSystem ws = new("HPTarget");
     private readonly HPWindow window = new();
@@ -40,9 +40,9 @@ public class HPWindow : Window {
         if (target == null) return;
         ImGui.Text($"{target.CurrentHp:n0} / {target.MaxHp:n0}");
 
-        PluginLog.Info($"Target HP: {target.CurrentHp}");
-        PluginLog.Info($"Target HP n0: {target.CurrentHp:n0}");
-        PluginLog.Info($"Target Max HP: {target.MaxHp}");
-        PluginLog.Info($"Target Max HP n0: {target.MaxHp:n0}");
+        Plugin.Log.Info($"Target HP: {target.CurrentHp}");
+        Plugin.Log.Info($"Target HP n0: {target.CurrentHp:n0}");
+        Plugin.Log.Info($"Target Max HP: {target.MaxHp}");
+        Plugin.Log.Info($"Target Max HP n0: {target.MaxHp:n0}");
     }
 }
