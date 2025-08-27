@@ -59,6 +59,12 @@ jobs:
           Invoke-WebRequest -Uri $url -OutFile latest.zip
           Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
 
+      - name: test
+        run: |
+          dotnet --list-sdks
+          dotnet workload list
+          dotnet restore -v diag
+
       - name: Build
         working-directory: HPTarget
         run: |
