@@ -14,7 +14,7 @@ public class Plugin : IDalamudPlugin {
 
     [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] public static ITargetManager TargetManager { get; private set; } = null!;
-    [PluginService] public static IPluginLog Log { get; private set; } = null!
+    [PluginService] public static IPluginLog Log { get; private set; } = null!;
 
     private readonly WindowSystem ws = new("HPTarget");
     private readonly HPWindow window = new();
